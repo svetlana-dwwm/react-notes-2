@@ -11,6 +11,7 @@ import Filters from './Filters'
 import NoteList from './NoteList'
 import AddNoteForm from './AddNoteForm'
 
+
 function Notes() {
 
   // Déclaration des états du composant.
@@ -84,3 +85,62 @@ function Notes() {
 }
 
 export default Notes;
+
+/*function Notes() {
+
+  const [notesRAW, setNotesRAW] = useState([]);
+  const [notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    NoteManager.list().then(loadedNotes => {
+      setNotesRAW(loadedNotes);
+      setNotes(loadedNotes); // Обновление notes после успешного обновления notesRAW
+    });
+  }, []);
+
+  function onRemoveBtnHandler(noteToDelete) {
+    const noteRawNewValues = ArrayLib.remove(notesRAW, noteToDelete);
+    setNotesRAW(noteRawNewValues);
+    setNotes(noteRawNewValues); // Обновление notes после успешного обновления notesRAW
+
+    if (noteToDelete.id) {
+      NoteManager
+        .remove(noteToDelete.id)
+        .then(response => console.log('note supprimé côté serveur'));
+    }
+  }
+
+  function onNoteAddedHandler(newNote) {
+    const noteRawNewValues = [...notesRAW, newNote];
+    setNotesRAW(noteRawNewValues);
+    setNotes(noteRawNewValues); // Обновление notes после успешного обновления notesRAW
+
+    NoteManager.create(newNote)
+      .then(() => NoteManager.list())
+      .then(data => {
+        setNotesRAW(data);
+        setNotes(data); // Обновление notes после успешного обновления notesRAW
+      });
+  }
+
+  function onFilterChangedHandler(keyword) {
+    const filteredNotes = keyword.length > 0 ?
+      notesRAW.filter(n => n.text.toLowerCase().includes(keyword.toLowerCase())) :
+      notesRAW;
+    
+    setNotes(filteredNotes);
+  }
+
+  return (
+    <>
+      <Counter notes={notes} />
+      <AddNoteForm onNoteAdded={onNoteAddedHandler} />
+      <Filters filters={filters} onFilterChanged={onFilterChangedHandler} />
+      <NoteList notes={notes} onRemoveBtn={onRemoveBtnHandler} />
+    </>
+  )
+}
+
+export default Notes;*/
+
+
